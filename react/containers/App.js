@@ -16,7 +16,8 @@ function App() {
   const [isMetric, setMetric] = useState(false);
   const [isAxis, setAxis] = useState('X');
   const [step, setStep] = useState(1);
-  const [weight, setWeight] = useState(undefined);
+  const [internalWeightage, setInternalWeightage] = useState(undefined);
+  const [externalWeightage, setExternalWeightage] = useState(undefined);
 
   useEffect(() => {
     setTimeout(() => {}, 1000);
@@ -111,9 +112,13 @@ function App() {
     };
     setRawModel(files[0]);
   };
-  const weightInputHandler = (e) => {
+  const internalWeightageHandler = (e) => {
     const wt = e.target.value;
-    setWeight(wt);
+    setInternalWeightage(wt);
+  };
+  const externalWeightageHandler = (e) => {
+    const wt = e.target.value;
+    setExternalWeightage(wt);
   };
   const div_style = {
     margin: 'auto',
@@ -262,22 +267,42 @@ function App() {
       <hr width="100%" />
       {model && outerRes && slicedRes && (
         <div>
-          <label for="weight">Weight(in kg):</label>
-          <br></br>
-          <input
-            type="text"
-            id="weight"
-            onChange={weightInputHandler}
-            style={{
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              background: '#4f005f',
-              color: 'white',
-              padding: '0.5em',
-              border: 'thin solid grey',
-              borderRadius: '0.5rem',
-            }}
-          />
+          <div>
+            <label for="weight">Weightage (internal):</label>
+            <br></br>
+            <input
+              type="text"
+              id="weight"
+              onChange={internalWeightageHandler}
+              style={{
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                background: '#4f005f',
+                color: 'white',
+                padding: '0.5em',
+                border: 'thin solid grey',
+                borderRadius: '0.5rem',
+              }}
+            />
+          </div>
+          <div>
+            <label for="weight">Weightage (external):</label>
+            <br></br>
+            <input
+              type="text"
+              id="weight"
+              onChange={externalWeightageHandler}
+              style={{
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                background: '#4f005f',
+                color: 'white',
+                padding: '0.5em',
+                border: 'thin solid grey',
+                borderRadius: '0.5rem',
+              }}
+            />
+          </div>
           <button
             style={buttonstyle}
             onClick={calculateComplexityMetric}
@@ -285,7 +310,9 @@ function App() {
           >
             Find complexity Metric
           </button>
-          {isMetric && <ComplexityMetric weight={weight} />}
+          {isMetric && (
+            <ComplexityMetric iw={internalWeightage} ew={externalWeightage} />
+          )}
         </div>
       )}
     </div>

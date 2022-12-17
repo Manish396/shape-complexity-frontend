@@ -8,7 +8,8 @@ function ComplexityMetric(props) {
     fetch(
       'http://localhost:8000/shapeComplexity?' +
         new URLSearchParams({
-          weight: props.weight,
+          internalWeightage: props.iw,
+          externalWeightage: props.ew,
         })
     ).then((response) =>
       response.json().then((json) => {
